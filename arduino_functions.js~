@@ -124,7 +124,7 @@ var output_JSON = JSON.stringify(output);
 
 
 
-//console.log(output_JSON);
+console.log(output_JSON);
 
 return output_JSON;
 

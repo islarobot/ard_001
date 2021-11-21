@@ -4,32 +4,39 @@
         <title>Project Sonar</title>
 		<script src="http://localhost:8080/socket.io/socket.io.js"></script>    
         <script type="text/javascript" src="sonar_new.js"></script>
+        	<script src="node_modules/tone/build/Tone.js"></script>
+
+<link rel="shortcut icon" href="#" />
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
         
         <script>
         
+        var angle_given_moment;
+        var direction_given_moment;
+        var radio = 400;
         var values_items = {
         	
-        		min:270, 
-        		max:90, 
-        		param_in:"A", 
+        		min:280, 
+        		max:80, 
+        		param_in	:"A",   //hasta 255 
         		state:"set", 
-        		speed_transmision:100,
+        		speed_transmision:50,
         		min_value:0, 
         		max_value:10,        		
-        		x_circum:1000,
-        		y_circum:980,
-        		w_square:2000,
-        		h_square:2000,
-        		radius_circum:900,
-        		largo_pata:10,
-        		largo_texto:15,
-        		delta_negativos:12,
+        		x_circum:radio*1.1111111,
+        		y_circum:radio*1.0888888,
+        		w_square:radio*2.2222222,
+        		h_square:radio*2.2222222,
+        		radius_circum:radio,
+        		largo_pata:radio*0.0111111,
+        		largo_texto:radio*0.0166666,
+        		delta_negativos:radio*0.0133333,
         		resolucion:10,
         		num_valores_delay:90, 
-        		resolucion_grados:3, 
-        		speed_update:100
+        		resolucion_grados:1,  //siempre entero 
+        		speed_update:100,
+        		max_amplitude_signal:100
         		
         		}
 			   
@@ -204,60 +211,48 @@
 	
 	var canvas = document.getElementById('myCanvas');
 
-
-		
-        	
-        	
+			var valor_recibido;
         		
 			var stream = new Array();
 			var stream_angles = new Array();        		        		
         		
 			canvas.width  = values_items.w_square;
-	canvas.height = values_items.h_square;;
-	var ctx = canvas.getContext('2d');	
-		      //funcion que setea los camposdel formulario (texto y botones)
-		        
-        //hide_fields_show_values_sonar(values_items);  
-        
-        		var last_angle = 0;
+			canvas.height = values_items.h_square;;
+			var ctx = canvas.getContext('2d');	
+		      
+		      
+        		//var last_angle = 0;
        
             var socket = io.connect("localhost:8080"); 
             /*Initializing the connection with the server via websockets */
             
 				//envío ángulos al arduino!!!
 				var min = circumB2circumA(values_items.min);
+				
+				
 				var max = values_items.max;
-				//var speed = 1.75
-				//var freq = 0		
-				//var juan = 0	
-				
-				// i es la iteracion del angulo
-
-				
-				//dir es la direccion
-				
+				var amplitud = max - min;
+							
 				var direccion = 'r';
-
-            // pintar canvas básico.
-            
-            	//draw_car(ctx,values_items);
 				
-				
-				canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
+				//canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
 				
 				function interval_send(){ 
-	 
-				 //test_radar();
-	 			//generateOutputs(socket,min,max,speed)
-	 			 
-	 			
-	 			  var msg_out = {mode:"data",inputParam:values_items.param_in,inputAngle:i,inputDirection:direccion}
+				
+					var i_out = angulo_absoluto(i,amplitud)+2;
+					//console.log(i_out);
+	 	 			
+	 			  var msg_out = {inputParam:values_items.param_in,inputAngle:i_out}
+	 			  
+	 			  angle_given_moment = i;
+	 			  direction_given:_moment = direccion;
+	 			  
 	 			  var msg_json = JSON.stringify(msg_out);
 	 			  if (start == true) {
 	 			  socket.emit('event', msg_json);	
 	 			  }
 	 			  
-	 			  //console.log('--0--'+msg_out.inputAngle)
+	 			  //console.log('--0--  '+msg_out.inputAngle)
   					
   					if (i>=max) {direccion = 'l';}
   					if (i<=min) {direccion = 'r';}
@@ -271,9 +266,22 @@
   					}
   						//speed_transmision es la velocidad a la que envio los angulos al ardu en ms.
   					
+  					var angle1 = circumA2circumB(i);
+  					var repeated = 2;
+  					var tres_valores = {angle:angle1,direccion:direccion,valor:valor_recibido,repeated:repeated};
+  					stream.push(tres_valores);
+					stream_angles.push(angle1);
+  					if (stream.length > values_items.num_valores_delay) {
+							stream.shift();
+							stream_angles.shift();
+					}
+  					draw_basic_lines(ctx,values_items);					
+					draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
+  					
+  					
 	 				} 		            
             
-					var myTimer = setInterval(interval_send, values_items.speed_transmision);            
+					
             
             
 				//recibo mensajes del servidor!!!            
@@ -283,71 +291,36 @@
                
 					//console.log('---> 8 ----> '+message)
 	
-
-
                 msg_in = JSON.parse(message);
-                
+                					
+					var param_received = msg_in.inputParam;
+					
+					//console.log('--0--:'+msg_in.outputValue);
+											
+					valor_recibido = parseFloat(msg_in.outputValue).toFixed(2);
+					
+					//console.log(valor_recibido);
 
-					
-					//filtro por parámetro
-					
-					var param_received = msg_in.inputParam;	
-					
-											//console.log('--0--:'+msg_in.inputAngle);
-					
-					var diferencia_abs = Math.abs(last_angle - msg_in.inputAngle);					
-					
-					
-					
-									
-					
-					if (param_received == values_items.param_in && diferencia_abs < 2*values_items.resolucion_grados) {
-					
-						last_angle = msg_in.inputAngle;
+					if (valor_recibido != 100) {
 						
 						
-					
-						var angle1 = circumA2circumB(msg_in.inputAngle);
-						
-												
+var osc = new Tone.Oscillator(440, "sine").toMaster().start();
 
-						
+setTimeout(function(){
 
-						
-						var direccion1 = msg_in.inputDirection;
-						
-						var valor = msg_in.outputValue.toFixed(2);
-						var repeated = 2;
+//var osc = new Tone.Oscillator(440, "sine").toMaster().stop();
 
-						var tres_valores = {angle:angle1,direccion:direccion1,valor:valor,repeated:repeated};
-						stream.push(tres_valores);
-						stream_angles.push(angle1);
-												
+osc.stop();
 
-						//console.log(stream);
-						if (stream.length > values_items.num_valores_delay) {
-							stream.shift();
-							stream_angles.shift();
-						}
-							
-						//console.log(stream.length);
-						
+ }, 50);
 
-					
-					draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
 
-					document.getElementById("content").innerHTML = angle1;
-					
-
-					
-					document.getElementById("content1").innerHTML = message.value_number;					
-					
-					//drawmarcas_sonar('myCanvas', 1000, 980, 2000, 1050, values_items, 900, 10, 15, 12, 10, angle1, direccion1,contact_array,valor);
-			
-					
 					}
+
+
 					});
 					
+					var myTimer = setInterval(interval_send, values_items.speed_transmision);            
 
             
 
