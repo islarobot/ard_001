@@ -15,7 +15,7 @@ var output = (input - min_in) * (max_out - min_out) / (max_in - min_in) + min_ou
 
 
 if (input == exception) {
-	output = 100;
+	output = 9999;
 }
 
 if (output < 0) {
@@ -107,6 +107,12 @@ funcion_conversion_ardu_node: function(datos)
 var d = datos.substr(0,4);
 
 var d_int = parseInt(d);
+
+//console.log(d_int);
+
+d_int = regla_de_tres(d_int,200,2000,0,100,9999)
+
+
 
 var a = datos.substr(4,6);
 

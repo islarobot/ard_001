@@ -65,9 +65,9 @@ connection_stablished = 1;
 
 ipc.server.on('message',function(data){
 	
-console.log('---> 7 ----> '+data);
+//console.log('---> 7 ----> '+data);
 
-    //global_socket_http.emit('stream', data);
+    global_socket_http.emit('stream', data);
 
 });
     

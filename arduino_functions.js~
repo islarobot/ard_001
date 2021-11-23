@@ -15,11 +15,11 @@ var output = (input - min_in) * (max_out - min_out) / (max_in - min_in) + min_ou
 
 
 if (input == exception) {
-	output = 100;
+	output = -1;
 }
 
 if (output < 0) {
-	output = 100;
+	output = -1;
 }
 
 return parseInt(output);
@@ -108,6 +108,12 @@ var d = datos.substr(0,4);
 
 var d_int = parseInt(d);
 
+//console.log(d_int);
+
+d_int = regla_de_tres(d_int,200,2000,0,100,9999)
+
+
+
 var a = datos.substr(4,6);
 
 var a_int = parseInt(a);
@@ -124,7 +130,7 @@ var output_JSON = JSON.stringify(output);
 
 
 
-console.log(output_JSON);
+//console.log(output_JSON);
 
 return output_JSON;
 

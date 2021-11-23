@@ -212,6 +212,10 @@
 	var canvas = document.getElementById('myCanvas');
 
 			var valor_recibido;
+			
+			var angulo;
+			var distancia;
+			
         		
 			var stream = new Array();
 			var stream_angles = new Array();        		        		
@@ -275,6 +279,7 @@
 							stream.shift();
 							stream_angles.shift();
 					}
+					//console.log(stream);
   					draw_basic_lines(ctx,values_items);					
 					draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
   					
@@ -288,18 +293,21 @@
 				draw_basic_lines(ctx,values_items);
             
             socket.on("stream",function(message){  
+            
+            
                
-					console.log('---> 8 ----> '+message)
+					//console.log('---> 8 ----> '+message)
 	
                 msg_in = JSON.parse(message);
                 					
 					var param_received = msg_in.inputParam;
 					
-					//console.log('--0--:'+msg_in.outputValue);
+					//console.log('--0--:'+msg_in.outputD);
 											
-					valor_recibido = parseFloat(msg_in.outputValue).toFixed(2);
+					angulo = parseFloat(msg_in.outputA).toFixed(2);
+					valor_recibido = parseFloat(msg_in.outputD).toFixed(2);
 					
-					//console.log(valor_recibido);
+					console.log(valor_recibido);
 
 					if (valor_recibido != 100) {
 						

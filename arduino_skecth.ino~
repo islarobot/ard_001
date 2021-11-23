@@ -10,6 +10,8 @@ int d=0;
 String outputString;
 String angle;
 String distance;
+String outputD;
+String outputA;
 
 Servo servoMotor;
 
@@ -57,10 +59,14 @@ void loop() {
       if(angle.length()==1){angle = '00'+angle;}
       if(angle.length()==2){angle = '0'+angle;}
 
-      outputString = "D:"+distance+" A:"+angle;
-      if(t!=999){
-      Serial.println(outputString);
-      }
+      outputD = distance+angle;
+      outputA = angle;
+
+      
+      //Serial.print(distance);
+      
+      Serial.println(outputD);
+      
       delay(300);
   
 }
