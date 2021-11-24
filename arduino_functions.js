@@ -100,8 +100,8 @@ funcion_conversion_ardu_node: function(datos)
 {
 
 //console.log('Datos: '+datos);
-//console.log('Length: '+datos.length)
 
+if (datos.length == 9) {
 
 
 var d = datos.substr(0,4);
@@ -118,7 +118,7 @@ var a = datos.substr(4,6);
 
 var a_int = parseInt(a);
 
-//console.log(d);
+//console.log(a_int);
 
 var output = {outputD:d_int,outputA:a_int};
 
@@ -128,8 +128,9 @@ var output = {outputD:d_int,outputA:a_int};
 var output_JSON = JSON.stringify(output);
 
 
-
-
+}else {
+output_JSON = JSON.stringify({outputD:0,outputA:0});
+}
 //console.log(output_JSON);
 
 return output_JSON;

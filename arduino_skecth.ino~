@@ -5,6 +5,11 @@ const int Trigger = 2;   //Pin digital 2 para el Trigger del sensor
 const int Echo = 3;   //Pin digital 3 para el echo del sensor
 
 int a=1;
+int total_a = 160;
+int max_a = total_a/2;
+int min_a = -1*max_a;
+
+
 int d=0;
 
 String outputString;
@@ -37,10 +42,10 @@ void loop() {
     
     
     if(d==0){a=a+2;
-    if(a>176){d=1;}
+    if(a>max_a){d=1;}
     }
     if(d==1){a=a-2;
-    if(a<4){d=0;}
+    if(a<min_a){d=0;}
     }   
     
   long t;
@@ -56,8 +61,11 @@ void loop() {
       if(distance.length()==3){distance = '0'+distance;}
 
   angle = String(a);
-      if(angle.length()==1){angle = '00'+angle;}
-      if(angle.length()==2){angle = '0'+angle;}
+  
+      if(angle.length()==1 && a >= 0){angle = '00'+angle;}
+      if(angle.length()==2 && a >= 0){angle = '0'+angle;}
+      if(angle.length()==1 && a < 0){angle = '0-'+angle;}
+      if(angle.length()==2 && a < 0){angle = '-'+angle;}
 
       outputD = distance+angle;
       outputA = angle;

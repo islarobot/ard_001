@@ -241,6 +241,14 @@
 				
 				//canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
 				
+			   function interval_receive(a, v)
+			   {
+				var angle1 = circumA2circumB(a);		
+				console.log(angle1);		   
+			   
+			   
+			   }
+				
 				function interval_send(){ 
 				
 					var i_out = angulo_absoluto(i,amplitud)+2;
@@ -271,6 +279,7 @@
   						//speed_transmision es la velocidad a la que envio los angulos al ardu en ms.
   					
   					var angle1 = circumA2circumB(i);
+  					//console.log(i);
   					var repeated = 2;
   					var tres_valores = {angle:angle1,direccion:direccion,valor:valor_recibido,repeated:repeated};
   					stream.push(tres_valores);
@@ -306,8 +315,8 @@
 											
 					angulo = parseFloat(msg_in.outputA).toFixed(2);
 					valor_recibido = parseFloat(msg_in.outputD).toFixed(2);
-					
-					console.log(valor_recibido);
+					interval_receive(angulo, valor_recibido);
+					//console.log(angulo);
 
 					if (valor_recibido != 100) {
 						
