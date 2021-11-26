@@ -241,12 +241,21 @@
 				
 				//canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
 				
-			   function interval_receive(a, v)
+			   function interval_receive(d, a, v)
 			   {
 				var angle1 = circumA2circumB(a);		
 				console.log(angle1);		   
-			   
-			   
+			   var repeated = 2;
+  				var tres_valores = {angle:angle1,direccion:d,valor:v,repeated:repeated};
+			   stream.push(tres_valores);
+				stream_angles.push(angle1);
+				if (stream.length > values_items.num_valores_delay) {
+							stream.shift();
+							stream_angles.shift();
+					}
+					//console.log(stream);
+  				draw_basic_lines(ctx,values_items);					
+				draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
 			   }
 				
 				function interval_send(){ 
@@ -279,7 +288,7 @@
   						//speed_transmision es la velocidad a la que envio los angulos al ardu en ms.
   					
   					var angle1 = circumA2circumB(i);
-  					//console.log(i);
+  					console.log(angle1);
   					var repeated = 2;
   					var tres_valores = {angle:angle1,direccion:direccion,valor:valor_recibido,repeated:repeated};
   					stream.push(tres_valores);
@@ -309,14 +318,16 @@
 	
                 msg_in = JSON.parse(message);
                 					
-					var param_received = msg_in.inputParam;
+					//var param_received = msg_in.inputParam;
 					
-					//console.log('--0--:'+msg_in.outputD);
+					//console.log('--0--:'+msg_in);
 											
-					angulo = parseFloat(msg_in.outputA).toFixed(2);
-					valor_recibido = parseFloat(msg_in.outputD).toFixed(2);
-					interval_receive(angulo, valor_recibido);
-					//console.log(angulo);
+					//angulo = parse(msg_in.angulo).toFixed(2);
+					angulo = parseInt(msg_in.angulo,10);
+					valor_recibido = parseFloat(msg_in.distancia).toFixed(2);
+					direccion1 = msg_in.direccion
+					interval_receive(direccion1, angulo, valor_recibido);
+					//console.log(direccion);
 
 					if (valor_recibido != 100) {
 						
@@ -337,7 +348,7 @@ osc.stop();
 
 					});
 					
-					var myTimer = setInterval(interval_send, values_items.speed_transmision);            
+					//var myTimer = setInterval(interval_send, values_items.speed_transmision);            
 
             
 

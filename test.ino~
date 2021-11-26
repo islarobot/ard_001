@@ -1,0 +1,37 @@
+// Servo - Version: Latest 
+#include <Servo.h>
+
+const int Trigger = 2;   //Pin digital 2 para el Trigger del sensor
+const int Echo = 3;   //Pin digital 3 para el echo del sensor
+
+int a=1;
+int total_a = 160;
+int max_a = total_a/2;
+int min_a = -1*max_a;
+
+
+int d=0;
+
+String outputString;
+String angle;
+String distance;
+String outputD;
+String outputA;
+
+Servo servoMotor;
+
+
+void setup() {
+
+
+
+Serial.begin(115200);
+
+Serial.println("hola");
+    
+}
+
+void loop() {
+  
+}
+

@@ -44,7 +44,6 @@ var arduino_connect = false;
 
 
 var SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline')
 
 /// SI MODO DEVELOPMENT
 
@@ -53,8 +52,6 @@ if (process.env.NODE_ENV == 'development') {
 }
  
 var sp = new SerialPort(port_string, { baudRate: 115200 }); // still works if NODE_ENV is set to development!
-const parser = new Readline()
-sp.pipe(parser)
  
 
 ////  CUANDO SE ABRE LA CONEXION CON ARDUINO
@@ -68,22 +65,56 @@ sp.on('open', function (err) {
  
  /// CUANDO RECIBO DATOS DE ARDU
  
-parser.on("data", function(data) {
+sp.on("data", function(data) {
 	
 	//console.log(data);
-	var d1 = data.substr(0,1);
-	var m = data.indexOf('M');
-	var d = data.substr(2,m-2);
-	var a = data.substr(m+1,data.length-m-2)
-	//console.log(data.length-m-2)
-	//console.log(a)
-	if (d1 == 0) {direccion = 'L';}else {direccion = 'R'}
-	var data_object = {direccion:d1,distancia:d,angulo:a}
-	var data_json = JSON.stringify(data_object);
-	ipc.of.world.emit('message',data_json);
-			//console.log(data_out_2);
 	
+	var data_string = data.toString();
+	console.log(data_string);
+	
+	var data_json = arduino_functions.funcion_conversion_ardu_node(data_string);
+	//console.log(data_json);
+	var data_object = JSON.parse(data_json);
+	if(it == 0){angle_2 = data_object.outputA;value_2 = data_object.outputD;}
+	if(it == 1){angle_1 = data_object.outputA;value_1 = data_object.outputD;}
+	if(it == 2){angle_0 = data_object.outputA;value_0 = data_object.outputD;}
+	if (it>2) {
+		angle_2 = angle_1;
+		angle_1 = angle_0;
+		angle_0 = data_object.outputA;
+		value_2 = value_1;
+		value_1 = value_0;
+		value_0 = data_object.outputD;
+		
+		
+		}
+	it++;
+	//console.log("pepe");
+	//console.log(angle_0);
+	//console.log(angle_1);
+	//console.log(angle_2);
+if(data_object.outputA == 0)
+{
+if (angle_1 > angle_2) { data_object.outputA = angle_1 + angle_1 - angle_2; }
+if (angle_1 < angle_2) { data_object.outputA = angle_1 - (angle_2 - angle_1); }
+data_object.outputD = value_1;
 
+
+
+
+}
+//console.log(data_object.outputA);
+	var data_json_def = JSON.stringify(data_object);
+	//console.log(data_json_def);
+	
+	if (data_json != 'NA') {
+			ipc.of.world.emit('message',data_json);
+			//console.log(data_out_2);
+	}
+  	 //console.log("---> 6 ---->  " + data_string);
+    //console.log("---> 6 ---->  " + data_json);
+    //ipc.of.world.emit('message',data_out_2);
+               
 });
 
 });

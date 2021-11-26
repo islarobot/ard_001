@@ -12,11 +12,11 @@ int min_a = -1*max_a;
 
 int d=0;
 
-String outputString;
-String angle;
-String distance;
-String outputD;
-String outputA;
+//String outputString;
+//String angle;
+//String distance;
+//String outputD;
+//String outputA;
 
 Servo servoMotor;
 
@@ -55,25 +55,30 @@ void loop() {
       
   t = pulseIn(Echo, HIGH); //obtenemos el ancho del pulso
   if((t<200) || (t>2000)){t=9999;}
-  distance = String(t);
-      if(distance.length()==1){distance = '000'+distance;}
-      if(distance.length()==2){distance = '00'+distance;}
-      if(distance.length()==3){distance = '0'+distance;}
+  //distance = String(t);
+    //  if(distance.length()==1){distance = '000'+distance;}
+     // if(distance.length()==2){distance = '00'+distance;}
+     // if(distance.length()==3){distance = '0'+distance;}
 
-  angle = String(a);
+  //angle = String(a);
   
-      if(angle.length()==1 && a >= 0){angle = '00'+angle;}
-      if(angle.length()==2 && a >= 0){angle = '0'+angle;}
-      if(angle.length()==1 && a < 0){angle = ' -'+angle;}
-      if(angle.length()==2 && a < 0){angle = '-'+angle;}
+    //  if(angle.length()==1 && a >= 0){angle = '00'+angle;}
+    //  if(angle.length()==2 && a >= 0){angle = '0'+angle;}
+    //  if(angle.length()==1 && a < 0){angle = ' -'+angle;}
+    //  if(angle.length()==2 && a < 0){angle = '-'+angle;}
 
-      outputD = distance+angle;
-      outputA = angle;
+    //  outputD = distance+angle;
+    //  outputA = angle;
 
+Serial.print(F("{\"d\": "));
+Serial.print(t);
+Serial.print(F(", \"a\": "));
+Serial.print(a);
+Serial.println(F("}"));
       
       //Serial.print(distance);
       
-      Serial.println(outputD);
+      //Serial.println(outputD);
       
       delay(300);
   

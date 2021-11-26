@@ -46,12 +46,6 @@ var arduino_connect = false;
 var SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline')
 
-/// SI MODO DEVELOPMENT
-
-if (process.env.NODE_ENV == 'development') {
-  SerialPort = require('virtual-serialport');
-}
- 
 var sp = new SerialPort(port_string, { baudRate: 115200 }); // still works if NODE_ENV is set to development!
 const parser = new Readline()
 sp.pipe(parser)
@@ -70,20 +64,10 @@ sp.on('open', function (err) {
  
 parser.on("data", function(data) {
 	
-	//console.log(data);
-	var d1 = data.substr(0,1);
-	var m = data.indexOf('M');
-	var d = data.substr(2,m-2);
-	var a = data.substr(m+1,data.length-m-2)
-	//console.log(data.length-m-2)
-	//console.log(a)
-	if (d1 == 0) {direccion = 'L';}else {direccion = 'R'}
-	var data_object = {direccion:d1,distancia:d,angulo:a}
-	var data_json = JSON.stringify(data_object);
-	ipc.of.world.emit('message',data_json);
-			//console.log(data_out_2);
+	console.log(data);
 	
 
+               
 });
 
 });

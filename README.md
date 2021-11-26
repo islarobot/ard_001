@@ -12,7 +12,7 @@ ejecutar node server.js
 
 ir en el navegador a localhost:8000/html/sonar_new.html
 
-git sustituir master por main y en lugar de contraseña, token: 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
+git sustituir master por main y en lugar de contraseña, token: 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
 
 
 

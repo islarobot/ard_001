@@ -1,0 +1,20 @@
+
+var args = process.argv.slice(2);
+
+var port_string = '/dev/ttyACM'+args[0];
+
+
+const SerialPort = require('serialport')
+const Readline = require('@serialport/parser-readline')
+const port = new SerialPort(port_string, { baudRate: 115200 })
+const parser = new Readline()
+port.pipe(parser)
+parser.on('data', console.log)
+
+//port.write('ROBOT PLEASE RESPOND\n')
+
+
+
+
+
+
