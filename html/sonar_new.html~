@@ -241,24 +241,52 @@
 				
 				//canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
 				
-			   function interval_receive(d, a, v)
+			   function interval_receive(d1, a, v)
 			   {
 				var angle1 = circumA2circumB(a);		
-				console.log(angle1);		   
+				//console.log(d1);		   
 			   var repeated = 2;
-  				var tres_valores = {angle:angle1,direccion:d,valor:v,repeated:repeated};
-			   stream.push(tres_valores);
-				stream_angles.push(angle1);
-				if (stream.length > values_items.num_valores_delay) {
-							stream.shift();
-							stream_angles.shift();
-					}
-					//console.log(stream);
-  				draw_basic_lines(ctx,values_items);					
-				draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
+  				//var tres_valores = {angle:angle1,direccion:d,valor:v,repeated:repeated};
+			   draw_basic_lines(ctx,values_items);					
+				draw_variable_lines(ctx,values_items,angle1,a,d1);
 			   }
 				
-				function interval_send(){ 
+				         
+            
+					
+            
+            
+				//recibo mensajes del servidor!!!            
+				draw_basic_lines(ctx,values_items);
+				
+				
+            
+            socket.on("stream",function(message){  
+            
+            
+               
+					//console.log('---> 8 ----> '+message)
+	
+                msg_in = JSON.parse(message);
+                					
+					//var param_received = msg_in.inputParam;
+					
+					//console.log('--0--:'+msg_in);
+											
+					//angulo = parse(msg_in.angulo).toFixed(2);
+					angulo = parseInt(msg_in.angulo,10);
+					valor_recibido = parseFloat(msg_in.distancia).toFixed(2);
+					direccion1 = msg_in.direccion
+					interval_receive(direccion1, angulo, valor_recibido);
+					//console.log(direccion1);
+
+
+
+					});
+					
+	
+ 				
+ 				function interval_send(){ 
 				
 					var i_out = angulo_absoluto(i,amplitud)+2;
 					//console.log(i_out);
@@ -302,63 +330,7 @@
 					draw_variable_lines(ctx,stream,stream_angles,values_items,angle1);
   					
   					
-	 				} 		            
-            
-					
-            
-            
-				//recibo mensajes del servidor!!!            
-				draw_basic_lines(ctx,values_items);
-            
-            socket.on("stream",function(message){  
-            
-            
-               
-					//console.log('---> 8 ----> '+message)
-	
-                msg_in = JSON.parse(message);
-                					
-					//var param_received = msg_in.inputParam;
-					
-					//console.log('--0--:'+msg_in);
-											
-					//angulo = parse(msg_in.angulo).toFixed(2);
-					angulo = parseInt(msg_in.angulo,10);
-					valor_recibido = parseFloat(msg_in.distancia).toFixed(2);
-					direccion1 = msg_in.direccion
-					interval_receive(direccion, angulo, valor_recibido);
-					//console.log(direccion);
-
-					if (valor_recibido != 100) {
-						
-						
-var osc = new Tone.Oscillator(440, "sine").toMaster().start();
-
-setTimeout(function(){
-
-//var osc = new Tone.Oscillator(440, "sine").toMaster().stop();
-
-osc.stop();
-
- }, 50);
-
-
-					}
-
-
-					});
-					
-					//var myTimer = setInterval(interval_send, values_items.speed_transmision);            
-
-            
-
- 
- 				
- 				//drawmarcas_sonar('myCanvas', 1000, 980, 2000, 1050, values_items, 900, 10, 15, 12, 10);
- 				
- 				//var test_angle_counter = 0;
- 				
- 				
+	 				} 		   
  				
  				
  				

@@ -1,8 +1,9 @@
 
+
 var ipc=require('node-ipc');
 
 var i=10;
-var direccion='L';
+var direccion='R';
 var ahora = Date.now();
 var delay = 300;
 
@@ -15,27 +16,39 @@ ipc.config.silent = true;
 
 ipc.connectTo('world');
 
-ipc.of.world.emit('message','pepe');
+//ipc.of.world.emit('message','pepe');
 
-while (true){
 
+interv = setInterval(cosa, delay);
+	
+function cosa(){
+	
+	
 	var d = parseInt(300*Math.random());	
 	
 	
 	var data_object = {direccion:direccion,distancia:d,angulo:i}
 	
 	var data_json = JSON.stringify(data_object);
-//console.log(ahora);
-//console.log(Date.now());
-
-if (Date.now() > ahora) {
 ipc.of.world.emit('message',data_json);
+//ipc.of.world.emit('message',"pepe");
 console.log(data_json);
 ahora = Date.now() + delay;
 
-if (i > 160) {direccion = 'R';}
-if (i < 0) {direccion = 'L';}
-if (direccion == 'L') {i=i+1;}
-if (direccion == 'R') {i=i-1;}
+if (i > 80) {direccion = 'L';}
+if (i < -80) {direccion = 'R';}
+if (direccion == 'L') {i=i-1;}
+if (direccion == 'R') {i=i+1;}
 }
-//console.log(ahora);
+
+
+
+
+
+
+
+
+
+
+
+

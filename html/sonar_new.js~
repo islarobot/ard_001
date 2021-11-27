@@ -1,7 +1,28 @@
 
-function hasDuplicates(array) {
-    return (new Set(array)).size !== array.length;
+
+function beep(){
+
+var osc = new Tone.Oscillator(440, "sine").toMaster().start();
+
+setTimeout(function(){
+
+//var osc = new Tone.Oscillator(440, "sine").toMaster().stop();
+
+osc.stop();
+
+ }, 50);
+
+
 }
+
+
+function angulo_absoluto(a,amp) {
+	
+return a+amp/2;	
+
+}
+
+
 
 
 function rgbToHex(r, g, b) {
@@ -173,163 +194,103 @@ resolucion = vl.resolucion;
  
 
 
-function draw_variable_lines(id,stream,stream_angles,vl,a)
+function draw_variable_lines(id,vl,a,d2)
 	
 	{
 
-		if (hasDuplicates(stream_angles)) {
-			
-			
-			
-			let unique_angles = new Set();
-			for (gg=0;gg<stream_angles.length-1;gg++) {	
-			if (!unique_angles.has(stream_angles[gg])) {
-			unique_angles.add(stream_angles[gg]);
-			
-		}
-			}
-			
-			for (gg=stream_angles.length-1;gg>=0;gg--) {	
-			if (unique_angles.has(stream_angles[gg])) {
-			unique_angles.delete(stream_angles[gg]);
-			stream[gg].repeated = 0;
-			
-		}else {
-			stream[gg].repeated = 1;
-
-		}
-			}
-
-			//console.log(stream);
-		}
-
-
-		//console.log(stream_angles);
-	//console.log(hasDuplicates(stream_angles));
-
-	//console.log(stream.length);
-	//console.log('pepe '+stream[stream.length-1].angle);
-	//console.log(a)
-	//console.log(stream);
 	
-	//var angulofacil = circumB2circumA(stream[stream.length-1].angle);
-	//var angulofacil = stream[stream.length-1].angle;
-		
+			console.log(a)
    var ctx = id;	
    
-   			
-			var color2 = 170;
-			var color1 = 230;
-			
-
-			
-			for (jj=stream.length-1;jj>=0;jj--) {	
-
+		if(d2 == 'R'){
+		draw_line(ctx,vl,a,0);
+		draw_line(ctx,vl,a,1);
+		draw_line(ctx,vl,a,2);
+		draw_line(ctx,vl,a,3);
+		draw_line(ctx,vl,a,4);
+		draw_line(ctx,vl,a,5);
+		draw_line(ctx,vl,a,6);
+		draw_line(ctx,vl,a,7);
+		draw_line(ctx,vl,a,8);
+		draw_line(ctx,vl,a,9);
+		draw_line(ctx,vl,a,10);
 		
+		draw_line(ctx,vl,a,11);
+		draw_line(ctx,vl,a,12);
+		draw_line(ctx,vl,a,13);
+		draw_line(ctx,vl,a,14);
+		draw_line(ctx,vl,a,15);
+		draw_line(ctx,vl,a,16);
+		draw_line(ctx,vl,a,17);
+		draw_line(ctx,vl,a,18);
+		draw_line(ctx,vl,a,19);
+		draw_line(ctx,vl,a,20);
 
-		ctx.beginPath();
-		var  alfaradf = stream[jj].angle * (Math.PI/180);
+		draw_line(ctx,vl,a,21);
+		draw_line(ctx,vl,a,22);
+		draw_line(ctx,vl,a,23);
+		draw_line(ctx,vl,a,24);
+		draw_line(ctx,vl,a,25);
+		draw_line(ctx,vl,a,26);
+		draw_line(ctx,vl,a,27);
+		draw_line(ctx,vl,a,28);
+		draw_line(ctx,vl,a,29);
+		draw_line(ctx,vl,a,30);
+		}else {
+		draw_line(ctx,vl,a,0);
+		draw_line(ctx,vl,a,-1);
+		draw_line(ctx,vl,a,-2);
+		draw_line(ctx,vl,a,-3);
+		draw_line(ctx,vl,a,-4);
+		draw_line(ctx,vl,a,-5);
+		draw_line(ctx,vl,a,-6);
+		draw_line(ctx,vl,a,-7);
+		draw_line(ctx,vl,a,-8);
+		draw_line(ctx,vl,a,-9);
+		draw_line(ctx,vl,a,-10);
 		
-     	var af;
-     	var bf;
-     	var a1f;
-     	var b1f;
-     	
-    
+		draw_line(ctx,vl,a,-11);
+		draw_line(ctx,vl,a,-12);
+		draw_line(ctx,vl,a,-13);
+		draw_line(ctx,vl,a,-14);
+		draw_line(ctx,vl,a,-15);
+		draw_line(ctx,vl,a,-16);
+		draw_line(ctx,vl,a,-17);
+		draw_line(ctx,vl,a,-18);
+		draw_line(ctx,vl,a,-19);
+		draw_line(ctx,vl,a,-20);
 
-			bf = vl.y_circum - vl.radius_circum * Math.cos(alfaradf);
-			af = vl.x_circum + vl.radius_circum * Math.sin(alfaradf);
-					
-			//console.log(af)					
-					
-			b1f = bf - Math.cos(alfaradf);
-			a1f = af + Math.sin(alfaradf);
-				     
-      ctx.moveTo(vl.x_circum, vl.y_circum);
-      	
-     
-if (!hasDuplicates(stream_angles)) {
-      	
-      ctx.lineTo(a1f, b1f);
-      
-   }
-   //console.log(stream[jj].value); 
-   if (hasDuplicates(stream_angles) && stream[jj].repeated == 0) {
-      	//setTimeout(function(){ console.log("STOP") }, 30000);
-
-      ctx.lineTo(a1f, b1f);
-      
-   }
- ctx.strokeStyle = rgbToHex(0,color2,0);
-		color2 = color2 - color2/(vl.num_valores_delay-60);
-				color2 = color2.toFixed(0);
-				//console.log(color2)
-		ctx.stroke();
-				ctx.closePath();
-
-		
-		
-		}
-for (jj=stream.length-1;jj>=0;jj--) {	
-							ctx.beginPath();
-		
-		
-		
-		
-
-			
-		var long_valor = vl.radius_circum * stream[jj].valor / 20;
-
-		var  alfaradf1 = (stream[jj].angle) * (Math.PI/180);
-		
-     	var af1;
-     	var bf1;
-     	var a1f1;
-     	var b1f1;
-     	
-    
-
-			bf1 = vl.y_circum - long_valor * Math.cos(alfaradf1);
-			af1 = vl.x_circum + long_valor * Math.sin(alfaradf1);
-					
-			//console.log(af)					
-					
-			b1f1 = bf1 - Math.cos(alfaradf1);
-			a1f1 = af1 + Math.sin(alfaradf1);
-				     
-      ctx.moveTo(vl.x_circum, vl.y_circum);
-   
-
-      	
-if (!hasDuplicates(stream_angles)) {
-      	
-      ctx.lineTo(a1f1, b1f1);
-      
-   }
-   //console.log(stream[jj].value); 
-   if (hasDuplicates(stream_angles) && stream[jj].repeated == 0) {
-      	//setTimeout(function(){ console.log("STOP") }, 30000);
-
-      ctx.lineTo(a1f1, b1f1);
-      
-   }
-   	//console.log(color1)
-      ctx.strokeStyle = rgbToHex(color1,0,0);
-		color1 = color1 - color1/(vl.num_valores_delay-60);
-		color1 = color1.toFixed(0);
-		ctx.stroke();
-		ctx.closePath();
-		
+		draw_line(ctx,vl,a,-21);
+		draw_line(ctx,vl,a,-22);
+		draw_line(ctx,vl,a,-23);
+		draw_line(ctx,vl,a,-24);
+		draw_line(ctx,vl,a,-25);
+		draw_line(ctx,vl,a,-26);
+		draw_line(ctx,vl,a,-27);
+		draw_line(ctx,vl,a,-28);
+		draw_line(ctx,vl,a,-29);
+		draw_line(ctx,vl,a,-30);
 
 		
 		}
+		
+		//console.log('Angle2: '+stream[stream.length-1].angle);
+
+
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
 	
 	
 	
-function getCursorPosition(canvas, event,vl) {
+function getCursorPosition(canvas, event,vl,s,m) {
     var rect = canvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
     var y = event.clientY - rect.top;
@@ -350,9 +311,13 @@ function getCursorPosition(canvas, event,vl) {
     
     angulo = angulo*57.2958;
     
-    return angulo;
+    if (m == 'manual') {
     	
-    }else {return 'false';}
+   
+   	s.emit 	
+    	
+    }
+ 	}
     
     
     
@@ -361,4 +326,48 @@ function getCursorPosition(canvas, event,vl) {
     
     
     
+}
+
+
+
+function draw_line(ctx, centro, angulo,i)
+
+{
+ctx.beginPath();
+   		//console.log(angulo);
+   		var aa = angulo - i;	
+			var color2 = 170;
+			
+			
+
+
+		ctx.beginPath();
+		var  alfaradf = aa * (Math.PI/180);
+		
+
+		
+     	var af;
+     	var bf;
+     	//var a1f;
+     	//var b1f;
+     	
+    
+
+			bf = centro.y_circum - centro.radius_circum * Math.cos(alfaradf);
+			af = centro.x_circum + centro.radius_circum * Math.sin(alfaradf);
+					
+
+				     
+      ctx.moveTo(centro.x_circum, centro.y_circum);
+      	ctx.lineTo(af, bf);
+				color2 = color2 - 60*Math.abs(i)/30;
+				color2 = color2.toFixed(0);
+ 				ctx.strokeStyle = rgbToHex(0,color2,0);
+		
+				//console.log(color2)
+				ctx.stroke();
+				ctx.closePath();
+
+
+
 }

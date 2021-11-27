@@ -55,7 +55,7 @@ ipc.server.on('start',function(){console.log('ipc server started');});
 ipc.server.on('connect',function(socket){
 	
 //ipc.server.emit(socket,'message','CONECTADO!!!!');
-
+console.log('Arduino conectado')
 global_socket_ipc = socket;
 connection_stablished = 1;
 
@@ -65,7 +65,7 @@ connection_stablished = 1;
 
 ipc.server.on('message',function(data){
 	
-//console.log('---> 7 ----> '+data);
+console.log('---> 7 ----> '+data);
 
     global_socket_http.emit('stream', data);
 
