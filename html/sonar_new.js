@@ -371,3 +371,21 @@ ctx.beginPath();
 
 
 }
+
+
+function pepe(id,vl,a,d,p) {
+	
+
+id.beginPath();
+
+id.fillStyle = p;
+
+
+
+//ctx.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 6.28);
+id.moveTo(vl.w_square/2, vl.h_square/2);
+id.lineTo(250,0);
+id.arc(250,250,250, -1.57, -0.785);
+id.lineTo(250,250);
+id.fill();
+}

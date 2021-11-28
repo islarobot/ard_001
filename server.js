@@ -5,7 +5,7 @@ var app = require('express')();
 var server = require('http').Server(app);  
 var io = require('socket.io')(server);
 var ipc=require('node-ipc');
-
+var connected = 0;
 
 var global_socket_ipc;
 var global_socket_http;
@@ -26,7 +26,7 @@ server.listen(8080);
 io.on('connection', function(socket) {  
 
 	console.log('http socket connected')
-
+	connected = 1;
 	global_socket_http = socket;
     //socket.emit('announcements', { message: 'A new user has joined!' });
 
@@ -65,10 +65,11 @@ connection_stablished = 1;
 
 ipc.server.on('message',function(data){
 	
-console.log('---> 7 ----> '+data);
+//console.log('---> 7 ----> '+data);
 
+	if (connected == 1) {
     global_socket_http.emit('stream', data);
-
+	}else {console.log("open browser")}
 });
     
     
