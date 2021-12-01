@@ -5,7 +5,7 @@ var ipc=require('node-ipc');
 var i=10;
 var direccion='R';
 var ahora = Date.now();
-var delay = 300;
+var delay = 600;
 
  
 ipc.config.id   = 'hello';

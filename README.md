@@ -18,7 +18,7 @@ git sustituir master por main y en lugar de contraseña, token: ghp_QVtPPRLTFOpl
 
 Orden de arranque:
 
-1. server.py
-2. server.js
+1. python2.7 server.py
+2. node server.js
 3. navegador localhost:8000/html/sonar_new.html
-4. arduino_connection.js 0
+4. node arduino_connection.js 0

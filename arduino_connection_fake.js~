@@ -37,8 +37,8 @@ ahora = Date.now() + delay;
 
 if (i > 80) {direccion = 'L';}
 if (i < -80) {direccion = 'R';}
-if (direccion == 'L') {i=i+1;}
-if (direccion == 'R') {i=i-1;}
+if (direccion == 'L') {i=i-1;}
+if (direccion == 'R') {i=i+1;}
 }
 
 

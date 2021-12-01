@@ -69,7 +69,8 @@ ipc.server.on('message',function(data){
 
 	if (connected == 1) {
     global_socket_http.emit('stream', data);
-	}else {console.log("open browser")}
+	}else {//console.log("open browser")
+	}
 });
     
     

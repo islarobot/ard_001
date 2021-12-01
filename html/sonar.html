@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Project Sonar</title>
+		<script src="http://localhost:8080/socket.io/socket.io.js"></script>    
+        <script type="text/javascript" src="sonar.js"></script>
+        	
+
+<link rel="shortcut icon" href="#" />
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+        
+        <script>
+        
+        var radio = 400;
+        
+        var values_items = {
+        	
+        		
+        		
+        		min_grad:-80, 
+        		max_grad:80,        		
+        		x_circum:radio*1.1111111,
+        		y_circum:radio*1.0888888,
+        		w_square:radio*2.2222222,
+        		h_square:radio*2.2222222,
+        		radius_circum:radio
+       
+        		
+        		}
+      
+        
+        
+        
+       
+			   
+			   
+        
+        
+        </script>
+    </head>
+    
+        <style>
+    
+    	.classProgress {
+    	width: 100%;
+    	background-color: grey;
+		}
+		.classBar {
+    	width: 0px;
+    	height: 30px;
+    	background-color: green;
+}
+    
+    </style>
+
+    
+    
+		
+					<canvas style="border:1px solid #000000;" id="myCanvas" ></canvas>			
+		
+	
+
+    </body>
+    
+	<script type="text/javascript">
+	
+
+	
+	var canvas = document.getElementById('myCanvas');
+
+			var valor_recibido;
+			
+			var angulo;
+			var distancia;
+			
+        		
+			var stream = new Array();
+			var stream_angles = new Array();        		        		
+        		
+			canvas.width  = values_items.w_square;
+			canvas.height = values_items.h_square;;
+			var ctx = canvas.getContext('2d');	
+			
+		    
+ 
+		      
+        		//var last_angle = 0;
+       
+            var socket = io.connect("localhost:8080"); 
+            /*Initializing the connection with the server via websockets */
+            
+				//envío ángulos al arduino!!!
+				//var min = circumB2circumA(values_items.min);
+				
+				
+				//var max = values_items.max;
+				//var amplitud = max - min;
+							
+				//var direccion = 'r';
+				
+				//canvas.addEventListener("click", function (e) { getCursorPosition(canvas, e,values_items,socket,mode);});
+				
+			   function interval_receive(d1, a, v)
+			   {
+				//var angle1 = circumA2circumB(a);		
+				//console.log(d1);		   
+			   //var repeated = 2;
+  				//var tres_valores = {angle:angle1,direccion:d,valor:v,repeated:repeated};
+			   //draw_basic_lines(ctx,values_items);					
+				//draw_variable_lines(ctx,values_items,a,d1);
+				draw_rastro(ctx,d1,a,0,values_items);
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				draw_basic_lines(ctx, values_items);
+				
+			   }
+				//draw_rastro(ctx,'R',0,0,values_items);
+				         
+
+					
+            
+            
+				//recibo mensajes del servidor!!!            
+				//draw_basic_lines(ctx,values_items);
+				
+				
+            
+            socket.on("stream",function(message){  
+            
+            
+               
+					//console.log('---> 8 ----> '+message)
+	
+                msg_in = JSON.parse(message);
+                					
+					//var param_received = msg_in.inputParam;
+					
+					//console.log('--0--:'+msg_in);
+											
+					//angulo = parse(msg_in.angulo).toFixed(2);
+					angulo = parseInt(msg_in.angulo,10);
+					valor_recibido = parseFloat(msg_in.distancia).toFixed(2);
+					direccion1 = msg_in.direccion
+					interval_receive(direccion1, angulo, valor_recibido);
+					//console.log(direccion1);
+
+
+
+					});
+					
+	
+ 				ctx.fillStyle = "black";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+ 				   
+ 				
+ 				
+ 				
+	</script>    
+    
+</html>
