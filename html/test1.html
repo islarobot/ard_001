@@ -1,0 +1,42 @@
+
+<div>
+  <canvas id="output"></canvas>	
+</div>
+<script type="text/javascript" src="sonar_new_2.js"></script>
+
+
+
+<script type="text/javascript">
+
+    var i = 0;
+
+        
+        var values_items = {
+        	
+        		
+        		
+        		min_grad:-80, 
+        		max_grad:80,        		
+        		x_circum:400,
+        		y_circum:200,
+        		w_square:800,
+        		h_square:400,
+        		radius_circum:200
+       
+        		
+        		}
+
+function pepe2(){
+
+
+
+pepe(values_items,i);
+
+if(i == 80){i = 0;}
+i--;
+console.log(i);
+}
+
+var myTimer = setInterval(pepe2, 200);
+
+</script>

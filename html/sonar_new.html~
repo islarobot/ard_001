@@ -3,8 +3,8 @@
     <head>
         <title>Project Sonar</title>
 		<script src="http://localhost:8080/socket.io/socket.io.js"></script>    
-        <script type="text/javascript" src="sonar_new.js"></script>
-        	<script src="node_modules/tone/build/Tone.js"></script>
+        <script type="text/javascript" src="sonar.js"></script>
+        	
 
 <link rel="shortcut icon" href="#" />
 

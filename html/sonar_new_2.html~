@@ -4,6 +4,24 @@
 
 <script type="text/javascript">
 
+var radio = 400;
+        
+        var values_items = {
+        	
+        		
+        		
+        		min_grad:-80, 
+        		max_grad:80,        		
+        		x_circum:radio*1.1111111,
+        		y_circum:radio*1.0888888,
+        		w_square:radio*2.2222222,
+        		h_square:radio*2.2222222,
+        		radius_circum:radio
+       
+        		
+        		}
+
+
 const vertices = [
   -1.0, 1.0, 0.0,
   -1.0, -1.0, 0.0,
@@ -83,9 +101,9 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer);
 
 // Colors. vec4 [r, g, b, a]
 const color1Loc = gl.getUniformLocation(shaderProgram, "u_color1");
-gl.uniform4fv(color1Loc, [0, 1, 0, 1]);
+gl.uniform4fv(color1Loc, [0, 0, 0, 1]);
 const color2Loc = gl.getUniformLocation(shaderProgram, "u_color2");
-gl.uniform4fv(color2Loc, [0, 0, 0, 1]);
+gl.uniform4fv(color2Loc, [0, 1, 0, 1]);
 
 // Width & height
 const heightLoc = gl.getUniformLocation(shaderProgram, "u_height");

@@ -115,37 +115,37 @@ gl.viewport(0, 0, canvas.width, canvas.height);
 gl.drawElements(gl.TRIANGLE_FAN, indices.length, gl.UNSIGNED_SHORT, 0);
 
 const pattern = c.createPattern(canvas, "no-repeat");
-
+c.fillStyle = pattern;
 
 
 c.beginPath();
 
-c.lineWidth = 1;
+//c.lineWidth = 1;
 var grado_1 = grado + 270;
 var rad = grado* ( Math.PI / 180 );
 var rad_1 = grado_1 * ( Math.PI / 180 );
 
 //var rad =  * ( Math.PI / 180 );
 //var direccion1 = 'R';
-console.log(grado);
+//console.log(grado);
 
 var xx = vl.radius_circum * Math.sin(rad);
 var yy = vl.radius_circum * Math.cos(rad);
 //console.log(grado+' '+xx+' '+yy);
 c.moveTo(vl.x_circum, vl.y_circum);
 c.lineTo(vl.x_circum+xx,vl.y_circum-yy);
-if (direccion1 == 'R') {
-//c.arc(vl.x_circum,vl.y_circum,vl.radius_circum, rad_1, rad_1-0.1);
+if (direccion == 'R') {
+c.arc(vl.x_circum,vl.y_circum,vl.radius_circum, rad_1, rad_1-1);
 }else {
-//c.arc(vl.x_circum,vl.y_circum,vl.radius_circum, rad_1, rad_1+0.1);
+c.arc(vl.x_circum,vl.y_circum,vl.radius_circum, rad_1, rad_1+1);
 }
-//c.lineTo(vl.x_circum, vl.y_circum);
+c.lineTo(vl.x_circum, vl.y_circum);
 //c.closePath();
-c.strokeStyle = '#008000';
-c.stroke();
+//c.strokeStyle = '#008000';
+//c.stroke();
 //c.fillStyle = pattern;
 //c.fillStyle = 'green';
-//c.fill();
+c.fill();
 
 }
 

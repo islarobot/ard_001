@@ -4,6 +4,24 @@
 
 <script type="text/javascript">
 
+var radio = 400;
+        
+        var values_items = {
+        	
+        		
+        		
+        		min_grad:-80, 
+        		max_grad:80,        		
+        		x_circum:radio*1.1111111,
+        		y_circum:radio*1.0888888,
+        		w_square:radio*2.2222222,
+        		h_square:radio*2.2222222,
+        		radius_circum:radio
+       
+        		
+        		}
+
+
 const vertices = [
   -1.0, 1.0, 0.0,
   -1.0, -1.0, 0.0,
@@ -119,6 +137,5 @@ ctx.lineTo(250,0);
 ctx.arc(250,250,250, -1.57, -0.785);
 ctx.lineTo(250,250);
 ctx.fill();
-
 
 </script>
