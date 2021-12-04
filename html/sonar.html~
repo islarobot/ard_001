@@ -4,7 +4,7 @@
         <title>Project Sonar</title>
 		<script src="http://localhost:8080/socket.io/socket.io.js"></script>    
         <script type="text/javascript" src="sonar.js"></script>
-        	
+        	<script src="https://unpkg.com/create-conical-gradient@latest/umd/create-conical-gradient.min.js"></script>
 
 <link rel="shortcut icon" href="#" />
 
@@ -12,7 +12,7 @@
         
         <script>
         
-        var radio = 400;
+        var radio = 200;
         
         var values_items = {
         	
@@ -20,10 +20,10 @@
         		
         		min_grad:-80, 
         		max_grad:80,        		
-        		x_circum:radio*1.1111111,
-        		y_circum:radio*1.0888888,
-        		w_square:radio*2.2222222,
-        		h_square:radio*2.2222222,
+        		x_circum:radio*1.2,
+        		y_circum:radio*1.2,
+        		w_square:radio*3,
+        		h_square:radio*3,
         		radius_circum:radio
        
         		
@@ -53,6 +53,7 @@
 }
     
     </style>
+    <body>
 
     
     
@@ -109,12 +110,12 @@
   				//var tres_valores = {angle:angle1,direccion:d,valor:v,repeated:repeated};
 			   //draw_basic_lines(ctx,values_items);					
 				//draw_variable_lines(ctx,values_items,a,d1);
-				//draw_rastro(ctx,d1,a,0,values_items);
-				
+				draw_rastro(ctx,d1,a,0,values_items);
+				console.log(a)
 				//draw_basic_lines(ctx, values_items);
 				
 			   }
-				draw_rastro(ctx,'R',0,0,values_items);
+				
 				         
 
 					

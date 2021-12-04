@@ -4,6 +4,11 @@ function pepe(vl,cd) {
 
 //console.log(vl.w_square)
 
+//precision mediump float;
+var jurjur = parseFloat(cd).toFixed(2);
+var jurjur_rad = jurjur * ( 3.1416 / 180.0 );
+
+
 const vertices = [
   -1.0, 1.0, 0.0,
   -1.0, -1.0, 0.0,
@@ -44,7 +49,7 @@ gl.shaderSource(vertShader, vertCode);
 gl.compileShader(vertShader);
 
 // Fragment shader
-const fragCode = `
+var fragCode = `
     // fragment shaders don't have a default precision so we need
     // to pick one. mediump is a good default
     precision mediump float;
@@ -58,11 +63,21 @@ const fragCode = `
       vec2 st = gl_FragCoord.xy;
       float half_width = u_width / 2.0;
       float half_height = u_height / 2.0;
+		
+		float sector = 45.0;
+		float pi = 3.1416;
+		float sector_rad = (-1.0) * sector * ( pi / 180.0 );
+		
+		
+		//float sector_rad1 = jurjur_rad;		
 
-      float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / -0.785;
+      //float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / -0.785;
+      float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / sector_rad;
+     
       gl_FragColor = mix(u_color1, u_color2, percent);
     }
   `;
+  
 const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
 gl.shaderSource(fragShader, fragCode);
 gl.compileShader(fragShader);
@@ -83,9 +98,9 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer);
 
 // Colors. vec4 [r, g, b, a]
 const color1Loc = gl.getUniformLocation(shaderProgram, "u_color1");
-gl.uniform4fv(color1Loc, [0, 0, 0, 1]);
+gl.uniform4fv(color1Loc, [0, 1, 0, 1]);
 const color2Loc = gl.getUniformLocation(shaderProgram, "u_color2");
-gl.uniform4fv(color2Loc, [0, 1, 0, 1]);
+gl.uniform4fv(color2Loc, [0, 0, 0, 1]);
 
 // Width & height
 const heightLoc = gl.getUniformLocation(shaderProgram, "u_height");
@@ -108,7 +123,7 @@ var output = document.getElementById("output");
 output.height = height;
 output.width = width;
 
-var amplitud = 180;
+var amplitud = 45;
 
 var grado_posicion = cd;
 var grado_posicion_rad = grado_posicion * ( Math.PI / 180 );

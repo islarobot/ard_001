@@ -33,7 +33,7 @@ function pepe2(){
 pepe(values_items,i);
 
 if(i == 80){i = 0;}
-i++;
+i--;
 console.log(i);
 }
 

@@ -26,7 +26,8 @@ function cosa(){
 	
 	var d = parseInt(300*Math.random());	
 	
-	
+	i = 0;
+	direccion = 'L';
 	var data_object = {direccion:direccion,distancia:d,angulo:i}
 	
 	var data_json = JSON.stringify(data_object);

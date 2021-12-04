@@ -5,7 +5,7 @@ var ipc=require('node-ipc');
 var i=10;
 var direccion='R';
 var ahora = Date.now();
-var delay = 600;
+var delay = 300;
 
  
 ipc.config.id   = 'hello';
@@ -26,7 +26,8 @@ function cosa(){
 	
 	var d = parseInt(300*Math.random());	
 	
-	
+	//i = 0;
+	//direccion = 'L';
 	var data_object = {direccion:direccion,distancia:d,angulo:i}
 	
 	var data_json = JSON.stringify(data_object);

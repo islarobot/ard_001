@@ -1,0 +1,21 @@
+<script src="https://unpkg.com/create-conical-gradient@latest/umd/create-conical-gradient.min.js"></script>
+<canvas id="my-canvas" width="480" height="270">
+  Your browser does not support canvas...
+</canvas>
+
+
+<script>
+
+const canvas = document.getElementById('my-canvas');
+const ctx = canvas.getContext('2d');
+
+const gradient = ctx.createConicalGradient(240, 135, -Math.PI, Math.PI);
+
+gradient.addColorStop(0, '#00FF00');
+gradient.addColorStop(1, '#000000');
+
+
+ctx.fillStyle = gradient.pattern;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+</script>

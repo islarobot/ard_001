@@ -1,12 +1,9 @@
+<div style="width: 500px; height: 500px;">
+  <canvas id="output"></canvas>
+</div>
 
+<script>
 
-function pepe(vl,cd) {
-
-//console.log(vl.w_square)
-
-//precision mediump float;
-var jurjur = parseFloat(cd).toFixed(2);
-var jurjur_rad = jurjur * ( 3.1416 / 180.0 );
 
 
 const vertices = [
@@ -16,8 +13,8 @@ const vertices = [
   1.0, 1.0, 0.0
 ];
 const indices = [0, 1, 2, 3];
-const height = vl.h_square;
-const width = vl.w_square;
+const height = 500;
+const width = 500;
 
 const canvas = document.createElement("canvas");
 canvas.height = height;
@@ -49,7 +46,7 @@ gl.shaderSource(vertShader, vertCode);
 gl.compileShader(vertShader);
 
 // Fragment shader
-var fragCode = `
+const fragCode = `
     // fragment shaders don't have a default precision so we need
     // to pick one. mediump is a good default
     precision mediump float;
@@ -63,21 +60,19 @@ var fragCode = `
       vec2 st = gl_FragCoord.xy;
       float half_width = u_width / 2.0;
       float half_height = u_height / 2.0;
-		
 		float sector = 45.0;
 		float pi = 3.1416;
 		float sector_rad = (-1.0) * sector * ( pi / 180.0 );
+		float sector1 = 45.0;
 		
-		
-		//float sector_rad1 = jurjur_rad;		
+		float sector_rad1 = (-1.0) * sector1 * ( pi / 180.0 );
 
-      //float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / -0.785;
-      float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / sector_rad;
-     
+		//sector_rad = parseFloat(sector_rad).toFixed(2);
+      float percent = (atan(st[0] - half_width, half_height - st[1]) - sector_rad1) / sector_rad;
+      //float percent = (atan(st[0] - half_width, half_height - st[1]) - 3.14) / -6.28;
       gl_FragColor = mix(u_color1, u_color2, percent);
     }
   `;
-  console.log(fragCode);
 const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
 gl.shaderSource(fragShader, fragCode);
 gl.compileShader(fragShader);
@@ -119,44 +114,22 @@ gl.viewport(0, 0, canvas.width, canvas.height);
 // Draw the square
 gl.drawElements(gl.TRIANGLE_FAN, indices.length, gl.UNSIGNED_SHORT, 0);
 
-var output = document.getElementById("output");
+const output = document.getElementById("output");
 output.height = height;
 output.width = width;
 
-var amplitud = 45;
+grd_rad_in = 270;
+grd_rad_fin = 350;
 
-var grado_posicion = cd;
-var grado_posicion_rad = grado_posicion * ( Math.PI / 180 );
-var posicion_x = vl.x_circum + vl.radius_circum * Math.sin(grado_posicion_rad);
-var posicion_y = vl.y_circum - vl.radius_circum * Math.cos(grado_posicion_rad);
-
-var grado_arco_ini = grado_posicion + 270;
-var grado_arco_rad_ini = grado_arco_ini * ( Math.PI / 180 );
-
-var grado_arco_fin = grado_arco_ini + amplitud;
-var grado_arco_rad_fin = grado_arco_fin * ( Math.PI / 180 );
-
+var grd_in = grd_rad_in * ( Math.PI / 180 );
+var grd_fin = grd_rad_fin * ( Math.PI / 180 );
 
 const ctx = output.getContext("2d");
-//console.log(vl.w_square)
-ctx.beginPath();
-ctx.rect(0, 0, vl.w_square, vl.h_square);
-ctx.stroke();
-
 const pattern = ctx.createPattern(canvas, "no-repeat");
-ctx.beginPath();
-
 ctx.fillStyle = pattern;
-
-ctx.moveTo(vl.x_circum, vl.y_circum);
-
-
-ctx.lineTo(posicion_x,posicion_y);
-ctx.arc(vl.x_circum, vl.y_circum,vl.radius_circum, grado_arco_rad_ini, grado_arco_rad_fin);
-//ctx.closePath();
-ctx.lineTo(vl.x_circum, vl.y_circum);
+ctx.moveTo(250,250);
+ctx.lineTo(250,0);
+ctx.arc(width / 2, height / 2, Math.min(width, height) / 2, grd_in, grd_fin);
+ctx.lineTo(250,250);
 ctx.fill();
-//ctx.stroke();
-
-
-}
+</script>
