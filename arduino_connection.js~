@@ -70,7 +70,7 @@ sp.on('open', function (err) {
  
 parser.on("data", function(data) {
 	
-	//console.log(data);
+	console.log(data);
 	var d1 = data.substr(0,1);
 	var m = data.indexOf('M');
 	var d = data.substr(2,m-2);
@@ -78,7 +78,7 @@ parser.on("data", function(data) {
 	//console.log(data.length-m-2)
 	//console.log(a)
 	if (d1 == 0) {direccion = 'L';}else {direccion = 'R'}
-	var data_object = {direccion:d1,distancia:d,angulo:a}
+	var data_object = {direccion:direccion,distancia:d,angulo:a}
 	var data_json = JSON.stringify(data_object);
 	ipc.of.world.emit('message',data_json);
 			//console.log(data_out_2);

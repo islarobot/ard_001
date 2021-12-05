@@ -16,7 +16,7 @@ var end_angle = start_angle+45;
 var end_angle_rad = end_angle * (Math.PI / 180);
 
 
-const gradient = ctx.createConicalGradient(240, 135, start_angle_rad, end_angle_rad);
+const gradient = ctx.createConicalGradient(240, 135, 0, 2 * Math.PI);
 
 
 
@@ -25,6 +25,10 @@ gradient.addColorStop(1, '#000000');
 
 
 ctx.fillStyle = gradient.pattern;
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+ctx.arc(canvas.width/2, canvas.height/2, 100, 0, 2 * Math.PI);
+ctx.arc(canvas.width/2, canvas.height/2, 50, 0, 2 * Math.PI);
+
+ctx.fill();
+//ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 </script>

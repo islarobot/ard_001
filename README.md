@@ -5,6 +5,9 @@
 1. installar node: sudo tar -xf node-v9.0.0-linux-x64.tar.xz --directory=/usr/local --strip-components=1
 2. instalar librerías:
 	npm install node-ipc@9.0.0
+	npm install serialport
+
+sudo gpasswd --add ${USER} dialout
 
 Ejecutar python server.py OJO, en el propio directorio!!!
 

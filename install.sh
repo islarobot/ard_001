@@ -12,5 +12,6 @@ sudo tar -xf node-v9.0.0-linux-x64.tar.gz --directory=/usr/local --strip-compone
 npm install node-ipc@9.0.0
 npm install express
 npm install socket.io@2.0
+npm install serialport
 sudo apt install python2-minimal
 
