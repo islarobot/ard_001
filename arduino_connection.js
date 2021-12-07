@@ -70,7 +70,7 @@ sp.on('open', function (err) {
  
 parser.on("data", function(data) {
 	
-	//console.log(data);
+	console.log(data);
 	var d1 = data.substr(0,1);
 	var m = data.indexOf('M');
 	var d = data.substr(2,m-2);
